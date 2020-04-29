@@ -35,4 +35,16 @@ describe('createState function', () => {
     setCounter(20);
     expect(getCounter()).toBe(20);
   });
+
+  it('create another state', () => {
+    const [getStuff, setStuff] = createState('table');
+
+    expect(getStuff()).toBe('table')
+
+    setStuff('chair');
+    expect(getStuff()).toBe('chair')
+
+    setStuff(n => n + ' 2')
+    expect(getStuff()).toBe('chair 2')
+  });
 });

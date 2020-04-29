@@ -5,6 +5,14 @@
   "engines": {
     "node": ">= 12.13 <13"
   },
+  "main": "./build/src/main.js",
+  "types": "./build/src/main.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "build/main.js",
+    "build/main.d.ts"
+  ],
   "devDependencies": {
     "@types/jest": "~25.1.2",
     "@types/node": "~12.12.27",

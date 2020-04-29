@@ -10,12 +10,41 @@ type Unsubscriber = () => void;
 type Invalidator<T> = (value?: T) => void;
 type Subscriber<T> = (value: T) => void;
 type SetFn<T> = (value: T | Function) => void;
-type GetFn<T> = () => T | Subscriber<T>;
+type GetFn<T> = () => T;
 type Subscribe<T> = (run: Subscriber<T>, invalidate?: Invalidator<T>) => Unsubscriber;
+
+/** Callback to update a value. */
+type Updater<T> = (value: T) => T;
+
+/** Readable interface for subscribing. */
+export interface Readable<T> {
+	/**
+	 * Subscribe on value changes.
+	 * @param run subscription callback
+	 * @param invalidate cleanup callback
+	 */
+	subscribe(run: Subscriber<T>, invalidate?: Invalidator<T>): Unsubscriber;
+}
+
+/** Writable interface for both updating and subscribing. */
+export interface Writable<T> extends Readable<T> {
+	/**
+	 * Set value and inform subscribers.
+	 * @param value to set
+	 */
+	set(value: T): void;
+
+	/**
+	 * Update value using callback and inform subscribers.
+	 * @param updater callback
+	 */
+	update(updater: Updater<T>): void;
+}
 
 interface Parameters<T> {
   subscribe: Subscribe<T>;
   unsubscriber: Unsubscriber;
+  state: Writable<T>;
 }
 
 export function createState<T>(initialValue: T): [GetFn<T>, SetFn<T>, Parameters<T>] {
@@ -30,12 +59,8 @@ export function createState<T>(initialValue: T): [GetFn<T>, SetFn<T>, Parameters
     }
   }
 
-  const getFn: GetFn<T> = (fn?: Subscriber<T>) => {
-    if (typeof fn === 'function') {
-      return state.subscribe.call(fn);
-    } else {
-      return currentValue;
-    }
+  const getFn: GetFn<T> = () => {
+    return currentValue;
   }
 
   const unsubscriber: Unsubscriber = state.subscribe((value => {
@@ -44,7 +69,8 @@ export function createState<T>(initialValue: T): [GetFn<T>, SetFn<T>, Parameters
 
   const params: Parameters<T> = {
     unsubscriber,
-    subscribe: state.subscribe
+    subscribe: state.subscribe,
+    state
   };
 
   return [getFn, setFn, params];

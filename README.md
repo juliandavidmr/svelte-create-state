@@ -1,7 +1,18 @@
 # Svelte create state _[in progress]_
 
-👩🏻‍💻 Developer Ready: [useState](https://reactjs.org/docs/hooks-state.html) 
-(from React) but for [Svelte](https://svelte.dev/).
+[useState](https://reactjs.org/docs/hooks-state.html) (from React) but for [Svelte](https://svelte.dev/).
+
+## Getting started
+
+### Install
+
+```bash
+npm i svelte-create-state
+```
+
+### Usage
+
+#### Basic
 
 ```ts
 import { createState } from "svelte-create-state";
@@ -13,6 +24,51 @@ getCounter() // 5
 
 setCounter(n => n + 1)
 getCounter() // 6
+```
+
+#### Subscribe changes
+
+```ts
+const [getStuff, setStuff, { subscribe }] = createState('chair');
+
+subscribe(stuff => {
+    console.log(stuff);
+    // Log initial value: chair
+    // Log second value: table
+});
+
+setStuff('table')
+```
+
+#### Svelte real example
+
+```html
+<script>
+  import { createState } from "svelte-create-state";
+
+  const [getCount, setCount, { state: count }] = createState(0);
+
+  function increment() {
+    setCount(count => count + 1);
+  }
+
+  function decrement() {
+    setCount(count => count - 1);
+  }
+
+  function logCurrentState() {
+    console.log(getCount(), 'or', $count);
+  }
+</script>
+
+<div>
+  <div>
+    <button on:click={increment}>+</button>
+    {$count}
+    <button on:click={decrement}>-</button>
+  </div>
+  <button on:click={logCurrentState}>Log state</button>
+</div>
 ```
 
 ## Contributing
