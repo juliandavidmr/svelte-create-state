@@ -5,7 +5,7 @@ describe('createState function', () => {
   // http://facebook.github.io/jest/docs/en/timer-mocks.html#content
   jest.useFakeTimers();
 
-  it('create a state', () => {
+  it('create a state and modify', () => {
     const [getCounter, setCounter] = createState(0);
 
     expect(getCounter()).toBe(0)
@@ -15,5 +15,24 @@ describe('createState function', () => {
 
     setCounter(n => n + 1)
     expect(getCounter()).toBe(6)
+  });
+
+  it('subscribe changes', () => {
+    let attempt = 0;
+    const results = [0, 100, 20];
+
+    const [getCounter, setCounter, { subscribe }] = createState(0);
+
+    subscribe((num) => {
+      expect(num).toBe(results[attempt]);
+      attempt++;
+      // done();
+    });
+
+    setCounter(100);
+    expect(getCounter()).toBe(100);
+
+    setCounter(20);
+    expect(getCounter()).toBe(20);
   });
 });

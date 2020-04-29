@@ -11,7 +11,7 @@ type Invalidator<T> = (value?: T) => void;
 type Subscriber<T> = (value: T) => void;
 type SetFn<T> = (value: T | Function) => void;
 type GetFn<T> = () => T | Subscriber<T>;
-type Subscribe<T> = (run: Subscriber<T>, invalidate: Invalidator<T>) => Unsubscriber;
+type Subscribe<T> = (run: Subscriber<T>, invalidate?: Invalidator<T>) => Unsubscriber;
 
 interface Parameters<T> {
   subscribe: Subscribe<T>;
