@@ -1,6 +1,6 @@
 {
   "name": "svelte-create-state",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "useState (from React) but for Svelte.",
   "engines": {
     "node": ">= 12.13 <13"
@@ -27,7 +27,8 @@
     "rimraf": "~3.0.2",
     "ts-jest": "~25.2.0",
     "tsutils": "~3.17.0",
-    "typescript": "~3.8.2"
+    "typescript": "~3.8.2",
+    "tslib": "~1.10.0"
   },
   "scripts": {
     "clean": "rimraf coverage build tmp",
@@ -41,7 +42,6 @@
   "author": "Julian Mora <anlijudavid@hotmail.com>",
   "license": "MIT",
   "dependencies": {
-    "svelte": "^3.21.0",
-    "tslib": "~1.10.0"
+    "svelte": "^3.21.0"
   }
 }
