@@ -44,5 +44,15 @@
   "license": "MIT",
   "dependencies": {
     "svelte": "^3.21.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juliandavidmr/svelte-create-state.git"
+  },
+  "keywords": [
+    "svelte",
+    "store",
+    "create-state",
+    "state"
+  ]
 }
