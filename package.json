@@ -1,6 +1,6 @@
 {
   "name": "svelte-create-state",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "useState (from React) but for Svelte.",
   "engines": {
     "node": ">= 12.13 <13"
