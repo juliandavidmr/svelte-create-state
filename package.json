@@ -10,6 +10,7 @@
   "files": [
     "README.md",
     "LICENSE",
+    "build/",
     "build/main.js",
     "build/main.d.ts"
   ],
