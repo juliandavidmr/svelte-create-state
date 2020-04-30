@@ -1,4 +1,4 @@
-# Svelte create state _[in progress]_
+# Svelte create state
 
 [useState](https://reactjs.org/docs/hooks-state.html) (from React) but for [Svelte](https://svelte.dev/).
 
@@ -70,6 +70,45 @@ setStuff('table')
   <button on:click={logCurrentState}>Log state</button>
 </div>
 ```
+
+## FAQ
+
+**What does calling createState do?**
+
+It declares a “state variable”. Our variable is called getCount but we could call it anything else, like getBanana. This is a way to “preserve” some values between the function calls — createState is a new way to use the exact same capabilities that `writable` provides in a svelte component.
+
+**What do we pass to createState as an argument?**
+
+The only argument to the createState() Hook is the initial state. The state doesn’t have to be an object. We can keep a number or a string if that’s all we need. In our example, we just want a number for how many times the user clicked, so pass 0 as initial state for our variable.
+
+**What does createState return?**
+
+It returns a pair of values: the current state and a function that updates it. This is why we write `const [getCount, setCount] = createState(0)`. This is similar to `writable(0)`, except you get them in a pair. If you’re not familiar with the syntax we used, read the next question.
+
+**What Do Square Brackets Mean?**
+
+You might have noticed the square brackets when we declare a state variable:
+
+
+```ts
+const [getCount, setCount] = createState(0);
+```
+
+The names on the left aren’t a part of the `svelte-create-state` or `svelte`. You can name your own state variables:
+
+```ts
+const [getFruit, setFruit] = createState('banana');
+```
+
+This JavaScript syntax is called “array destructuring”. It means that we’re making two new variables fruit and setFruit, where fruit is set to the first value returned by createState, and setFruit is the second. It is equivalent to this code:
+
+```ts
+var fruitStateVariable = createState('banana'); // Returns a pair
+var getFruit = fruitStateVariable[0]; // First item in a pair
+var setFruit = fruitStateVariable[1]; // Second item in a pair
+```
+
+When we declare a state variable with createState, it returns a pair — an array with two items. The first item is the current value, and the second is a function that lets us update it. Using [0] and [1] to access them is a bit confusing because they have a specific meaning. This is why we use array destructuring instead.
 
 ## Contributing
 

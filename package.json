@@ -22,6 +22,7 @@
     "eslint-config-prettier": "~6.10.0",
     "eslint-plugin-jest": "~23.7.0",
     "jest": "~25.1.0",
+    "np": "^6.2.3",
     "prettier": "~1.19.1",
     "rimraf": "~3.0.2",
     "ts-jest": "~25.2.0",
@@ -34,7 +35,8 @@
     "build:watch": "tsc -w -p tsconfig.release.json",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "release": "np"
   },
   "author": "Julian Mora <anlijudavid@hotmail.com>",
   "license": "MIT",
